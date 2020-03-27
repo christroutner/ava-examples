@@ -4,7 +4,7 @@
   "description": "A collection of examples for interacting with an Ava full node (Gecko)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo No tests, these are just simple examples.",
     "lint": "standard --env mocha --fix",
     "start": "node index.js"
   },
