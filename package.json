@@ -4,7 +4,9 @@
   "description": "A collection of examples for interacting with an Ava full node (Gecko)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard --env mocha --fix",
+    "start": "node index.js"
   },
   "keywords": [
     "javascript",
@@ -20,5 +22,18 @@
     "bn.js": "^5.1.1",
     "buffer": "^5.5.0",
     "slopes": "^1.3.19"
-  }
+  },
+  "devDependencies": {
+    "semantic-release": "^17.0.4",
+    "standard": "^14.3.3"
+  },
+  "release": {
+    "publish": [
+      {
+        "path": "@semantic-release/npm",
+        "npmPublish": false
+      }
+    ]
+  },
+  "repository": "christroutner/ava-examples"
 }

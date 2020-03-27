@@ -1,1 +1,1 @@
-console.log(`Enter one of the directories and run 'npm start'`)
+console.log('Enter one of the directories and run \'npm start\'')
