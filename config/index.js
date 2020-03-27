@@ -4,9 +4,9 @@
 
 const config = {
   networkID: 12345,
-  fullNodeHost: "localhost",
+  fullNodeHost: 'localhost',
   fullNodePort: 9650,
-  fullNodeProtocol: "http"
-};
+  fullNodeProtocol: 'http'
+}
 
 module.exports = config
