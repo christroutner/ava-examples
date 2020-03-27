@@ -7,6 +7,8 @@ const slopes = require("slopes");
 const config = require("../config");
 const wallet = require("../create-wallet/wallet.json");
 
+const binTools = new slopes.BinTools()
+
 let ava = new slopes.Slopes(
   config.fullNodeHost,
   config.fullNodePort,
@@ -15,48 +17,35 @@ let ava = new slopes.Slopes(
 );
 let avm = ava.AVM(); //returns a reference to the AVM API used by Slopes
 
-// Generate a keychain/wallet.
-// const myKeychain = avm.keyChain();
-
-// Generate a new a key pair.
-// const newAddress = myKeychain.makeKey();
-// const keyPair = myKeychain.getKey(newAddress)
-
-console.log(`wallet: ${JSON.stringify(wallet, null, 2)}`);
+// console.log(`wallet: ${JSON.stringify(wallet, null, 2)}`);
 
 async function getBalance() {
   try {
     // Generate a keychain/wallet.
     const myKeychain = avm.keyChain();
 
-    let newAddress2 = myKeychain.importKey(wallet.privateKey);
-
-    // const id = await avm.getAVAAssetID()
-    // console.log(`id: `, id.toString())
-
+    // Get all the UTXOs associated with the address.
     const utxoSet = await avm.getUTXOs([wallet.chainAddr]);
     // console.log(`utxos: ${JSON.stringify(utxos,null,2)}`)
-    // console.log(`utxos.utxos: ${JSON.stringify(utxos.utxos,null,2)}`)
-    // console.log(`utxos.utxos: `, utxos.utxos);
 
+    // Collect all the asset IDs from the UTXO set.
     const assetIds = utxoSet.getAssetIDs()
     // console.log(`assetIds: ${JSON.stringify(assetIds, null, 2)}`)
-    // console.log(`asset: ${slopes.BinTools.bufferToString(assetIds[0])}`)
-    // console.log(`slopes.BinTools: `, slopes.BinTools)
 
-    const binTools = new slopes.BinTools()
-    // console.log(`binTools: `, binTools)
+    console.log('Balances dispalyed as: <asset ID>, <balance>')
 
-    const asset = binTools.b58.encode(assetIds[0])
-    console.log(`asset: ${asset}`)
+    // Loop through each asset.
+    for(let i=0; i < assetIds.length; i++) {
+      const thisAsset = assetIds[0]
 
-    // const balance = await avm.getBalance(wallet.chainAddr, asset)
-    // console.log(`balance: `, balance)
+      // Convert the asset buffer to a string.
+      const assetSerialized = binTools.avaSerialize(thisAsset)
 
-    // const addressBuf = binTools.b58.decode(wallet.chainAddr)
+      // Query the balance for this asset.
+      const balance = await avm.getBalance(wallet.chainAddr, assetSerialized)
 
-    const balance = utxoSet.getBalance([newAddress2], assetIds[0])
-    console.log(`balance: `, balance.toString(10))
+      console.log(`${assetSerialized}, ${balance}`)
+    }
 
   } catch (err) {
     console.error(`Error: `, err);
