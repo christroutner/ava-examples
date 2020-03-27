@@ -1,0 +1,12 @@
+{
+  "name": "check-balance",
+  "version": "1.0.0",
+  "description": "Check balance of wallet created by create-wallet",
+  "main": "check-balance.js",
+  "scripts": {
+    "test": "echo no tests yet",
+    "start": "node check-balance.js"
+  },
+  "author": "Chris Troutner <chris.troutner@gmail.com>",
+  "license": "MIT"
+}

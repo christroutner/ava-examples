@@ -12,7 +12,7 @@ Also ensure you have Node.js LTS version 12.13.1 or higher installed.
 - Clone this respository:
 `git clone https://github.com/christroutner/ava-examples && cd ava-examples`
 - Install dependencies: `npm install`
-- Enter into the example directories and run `npm start`
+- Enter into the example directories and run: `npm start`
 
 
 ## Basic Wallet Functions
