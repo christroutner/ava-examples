@@ -2,30 +2,27 @@
   Check the balance of the wallet created by the create-wallet example.
 */
 
-const slopes = require("slopes");
+const slopes = require('slopes')
 
-const config = require("../config");
-const wallet = require("../create-wallet/wallet.json");
+const config = require('../config')
+const wallet = require('../create-wallet/wallet.json')
 
 const binTools = new slopes.BinTools()
 
-let ava = new slopes.Slopes(
+const ava = new slopes.Slopes(
   config.fullNodeHost,
   config.fullNodePort,
   config.fullNodeProtocol,
   config.networkID
-);
-let avm = ava.AVM(); //returns a reference to the AVM API used by Slopes
+)
+const avm = ava.AVM() // returns a reference to the AVM API used by Slopes
 
 // console.log(`wallet: ${JSON.stringify(wallet, null, 2)}`);
 
-async function getBalance() {
+async function getBalance () {
   try {
-    // Generate a keychain/wallet.
-    const myKeychain = avm.keyChain();
-
     // Get all the UTXOs associated with the address.
-    const utxoSet = await avm.getUTXOs([wallet.chainAddr]);
+    const utxoSet = await avm.getUTXOs([wallet.chainAddr])
     // console.log(`utxos: ${JSON.stringify(utxos,null,2)}`)
 
     // Collect all the asset IDs from the UTXO set.
@@ -35,7 +32,7 @@ async function getBalance() {
     console.log('Balances dispalyed as: <asset ID>, <balance>')
 
     // Loop through each asset.
-    for(let i=0; i < assetIds.length; i++) {
+    for (let i = 0; i < assetIds.length; i++) {
       const thisAsset = assetIds[0]
 
       // Convert the asset buffer to a string.
@@ -46,9 +43,8 @@ async function getBalance() {
 
       console.log(`${assetSerialized}, ${balance}`)
     }
-
   } catch (err) {
-    console.error(`Error: `, err);
+    console.error('Error: ', err)
   }
 }
-getBalance();
+getBalance()
